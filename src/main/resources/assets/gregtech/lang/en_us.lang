@@ -2877,8 +2877,8 @@ gregtech.recipe.chance=Chance: %s%%
 gregtech.recipe.blast_furnace_temperature=Temperature: %dK
 gregtech.recipe.eu_to_start=Energy To Start: %dEU
 
-gregtech.fluid.click_to_fill=§7Click with a empty fluid container to fill it from tank.
-gregtech.fluid.click_to_fill.shift=§7(Shift-clicking will fill all containers in your hand)
+gregtech.fluid.click_to_fill=§7Right Click with a empty fluid container to fill it from tank.
+gregtech.fluid.click_to_fill.shift=§7(Shift-rightclicking will fill all containers in your hand)
 
 gregtech.fluid.click_to_empty=§7Click with a filled fluid container to empty in into tank.
 gregtech.fluid.click_to_empty.shift=§7(Shift-clicking will empty all containers in your hand)

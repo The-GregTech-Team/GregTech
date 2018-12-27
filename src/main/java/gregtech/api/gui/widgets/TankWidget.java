@@ -206,22 +206,23 @@ public class TankWidget extends Widget {
     public void handleClientAction(int id, PacketBuffer buffer) {
         super.handleClientAction(id, buffer);
         if(id == 1) {
+            boolean isRightClick = buffer.readBoolean();
             boolean isShiftKeyDown = buffer.readBoolean();
-            int clickResult = tryClickContainer(isShiftKeyDown);
+            int clickResult = tryClickContainer(isRightClick, isShiftKeyDown);
             if(clickResult >= 0) {
                 writeUpdateInfo(4, buf -> buf.writeInt(clickResult));
             }
         }
     }
 
-    private int tryClickContainer(boolean isShiftKeyDown) {
+    private int tryClickContainer(boolean isRightClick, boolean isShiftKeyDown) {
         EntityPlayer player = gui.entityPlayer;
         ItemStack currentStack = player.inventory.getItemStack();
         if(!currentStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null))
             return -1;
         int maxAttempts = isShiftKeyDown ? currentStack.getCount() : 1;
 
-        if(allowClickFilling && fluidTank.getFluidAmount() > 0) {
+        if(allowClickFilling && fluidTank.getFluidAmount() > 0 && !isRightClick) {
             boolean performedFill = false;
             FluidStack initialFluid = fluidTank.getFluid();
             for(int i = 0; i < maxAttempts; i++) {
@@ -244,7 +245,7 @@ public class TankWidget extends Widget {
             }
         }
 
-        if(allowClickEmptying) {
+        if(allowClickEmptying && isRightClick) {
             boolean performedEmptying = false;
             for(int i = 0; i < maxAttempts; i++) {
                 FluidActionResult result = FluidUtil.tryEmptyContainer(currentStack,
@@ -276,10 +277,10 @@ public class TankWidget extends Widget {
         if(!isMouseOver(x, y, width, height, mouseX, mouseY))
             return;
         ItemStack currentStack = gui.entityPlayer.inventory.getItemStack();
-        if(button == 0 && (allowClickEmptying || allowClickFilling) &&
+        if((allowClickEmptying || allowClickFilling) &&
             currentStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
             boolean isShiftKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-            writeClientAction(1, writer -> writer.writeBoolean(isShiftKeyDown));
+            writeClientAction(1, writer -> writer.writeBoolean(button == 0).writeBoolean(isShiftKeyDown));
         }
     }
 }

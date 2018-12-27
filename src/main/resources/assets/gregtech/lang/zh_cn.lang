@@ -2847,8 +2847,8 @@ gregtech.recipe.chance=概率: %s%%
 gregtech.recipe.blast_furnace_temperature=温度: %dK
 gregtech.recipe.eu_to_start=需求能源: %dE
 
-gregtech.fluid.click_to_fill=§7用一个空的流体容器点击来从罐中提取.
-gregtech.fluid.click_to_fill.shift=§7(Shift-单击将使你手中所有容器充满)
+gregtech.fluid.click_to_fill=§7用一个空的流体容器右击来从罐中提取.
+gregtech.fluid.click_to_fill.shift=§7(Shift-右击将使你手中所有容器充满)
 
 gregtech.fluid.click_to_empty=§7用一个满的流体容器点击来倒入罐中.
 gregtech.fluid.click_to_empty.shift=§7(Shift-单击将清空你手中所有的容器)
